@@ -18,42 +18,71 @@
     <![endif]-->
   </head>
   <body>
-  		<nav class="navbar navbar-inverse ">
-				<a href="index.php" type="button" class="btn btn-default btn-lg ">Home</a>
-  		</nav>
+        <nav class="navbar navbar-inverse ">
+                <a href="index.php" type="button" class="btn btn-default btn-lg ">Home</a>
+        </nav>
      
-     	<div class="container">
-     		<div class="page-header">
+        <div class="container">
+            <div class="page-header">
   <h1>New contact</h1>
-</div>
-     		<form role="form">
-     			<div class="form-group">
-     				<label for="First Name">First Name</label>
-     				<input type="text" class="form-control"  placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="Last Name">Last Name</label>
-     				<input type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="Phone number">Phone number</label>
-     				<input type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="email">Email</label>
-     				<input type="email" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="address">Address</label>
-     				<input type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="birthday">Birthday</label>
-     				<input type="text" class="form-control" placeholder="">
-     			</div>
-     			<button type="button" class="btn btn-success">Add</button>
-     		</form>
-     	</div>
+<?php
+
+require_once "config.php";
+
+
+if(isset($_POST['button1'])){
+
+
+    $pdo=getConnection();
+
+    $stmt=$pdo->prepare("INSERT INTO contact_table (name, last_name, phone_number, address, birthday, e_mail) VALUES (:name, :last_name, :phone_number, :address, :birthday, :e_mail)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':last_name', $last_name);
+    $stmt->bindParam(':phone_number', $phone_number);
+    $stmt->bindParam(':address', $address);
+    $stmt->bindParam(':birthday', $birthday);
+    $stmt->bindParam(':e_mail', $e_mail);
+    $name = $_POST['name'];
+    $last_name = $_POST['last_name'];
+    $phone_number = $_POST['phone_number'];
+    $address = $_POST['address'];
+    $birthday = $_POST['birthday'];
+    $e_mail = $_POST['e_mail'];
+    print_r($query);
+    $stmt->execute();
+    
+}
+?>
+        </div>
+
+            <form method="post" role="form">
+                <div class="form-group">
+                    <label for="First Name">First Name</label>
+                    <input name="name" type="text" class="form-control"  placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="Last Name">Last Name</label>
+                    <input name="last_name" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="Phone number">Phone number</label>
+                    <input name="phone_number" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="e_mail" type="email" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input name="address" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Birthday</label>
+                    <input name="birthday" type="text" class="form-control" placeholder="">
+                </div>
+                <input type="submit" name="button1" class="btn btn-success"></button>
+            </form>
+        </div>
 
 
 
@@ -61,7 +90,6 @@
 
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>

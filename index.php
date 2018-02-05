@@ -24,7 +24,7 @@
     <div class="navbar-header">
       <a href="#" type="button" class="btn btn-default btn-lg ">Home</a>
       <a href="form.php" type="button" class="btn btn-default btn-lg ">Add</a>
-        <form class="navbar-form navbar-right" role="search">
+        <form action="add.php" method="post" class="navbar-form navbar-right" role="search">
               <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
               </div>
@@ -35,19 +35,40 @@
   </div>
 </nav>
 
+<?php 
+      require_once "config.php";
+        $query = "SELECT * FROM contact_table";
+        $data = selectPerson($query);
+?>
+
+
 <table class="table table-bordered">
     <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Address</th>
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Phone number</th>
+      <th scope="col">Редактировать/удалить запись</th>
     </tr>
+    <?php
+    foreach ($data as $user):
+      ?>
+    <tr>
+      <td><?php echo $user['address']; ?></td>
+      <td><?php echo $user['name']; ?></td>
+      <td><?php echo $user['last_name']; ?></td>
+      <td><?php echo $user['phone_number']; ?></td>
+      <td><a href="edit.php?id=<?= $user['id']; ?>" type="button" class="btn btn-success" scope="col" >Изменить</a></td>
+    </tr>
+<?php
+      endforeach;
+?>
   </thead>
+  
   </table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
