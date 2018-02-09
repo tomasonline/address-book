@@ -18,12 +18,12 @@
     <![endif]-->
   </head>
   <body>
-  		<nav class="navbar navbar-inverse ">
-				<a href="index.php" type="button" class="btn btn-default btn-lg ">Home</a>
-  		</nav>
+        <nav class="navbar navbar-inverse ">
+                <a href="index.php" type="button" class="btn btn-default btn-lg ">Home</a>
+        </nav>
      
-     	<div class="container">
-     		<div class="page-header">
+        <div class="container">
+            <div class="page-header">
   <h1>Edit contact</h1>
 </div>
 <?php
@@ -32,55 +32,55 @@ require_once "config.php";
 
 
 if(isset($_GET['id'])){
-	$id=$_GET['id'];
+    $id=$_GET['id'];
 }
 if(isset($_POST['submit'])){
-	$name = $_POST['name'];
-	$last_name = $_POST['last_name'];
-	$phone_number = $_POST['phone_number'];
-	$address = $_POST['address'];
-	$birthday = $_POST['birthday'];
-	$e_mail = $_POST['e_mail'];
+    $name = $_POST['name'];
+    $last_name = $_POST['last_name'];
+    $phone_number = $_POST['phone_number'];
+    $address = $_POST['address'];
+    $birthday = $_POST['birthday'];
+    $e_mail = $_POST['e_mail'];
 
-	$query="UPDATE contact_table SET name='".$name."', last_name='".$last_name."', phone_number='".$phone_number."', address='".$address."', birthday='".$birthday."', e_mail='".$e_mail."' WHERE id=".$id;
-	$update=updatePerson($query);
+    $query="UPDATE contact_table SET name='".$name."', last_name='".$last_name."', phone_number='".$phone_number."', address='".$address."', birthday='".$birthday."', e_mail='".$e_mail."' WHERE id=".$id;
+    $update=updatePerson($query);
 
-	
+    
 }
 function updatePerson($query){
-	$pdo=getConnection();
+    $pdo=getConnection();
 
-	$stmt=$pdo->prepare($query);
-	print_r($query);
-	return $stmt->execute();
+    $stmt=$pdo->prepare($query);
+    print_r($query);
+    return $stmt->execute();
 }
 ?>
 <form method="POST" role="form">
-    			<div class="form-group">
-     				<label for="First Name">First Name</label>
-     				<input name="name" type="text" class="form-control"  placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="Last Name">Last Name</label>
-     				<input name="last_name" type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="Phone number">Phone number</label>
-     				<input name="phone_number" type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="email">Email</label>
-     				<input name="e_mail" type="email" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="address">Address</label>
-     				<input name="address" type="text" class="form-control" placeholder="">
-     			</div>
-     			<div class="form-group">
-     				<label for="birthday">Birthday</label>
-     				<input name="birthday" type="text" class="form-control" placeholder="">
-     			</div>
-     			<input type="submit" name="submit" value="Edit" class="btn btn-success"></button>
+                <div class="form-group">
+                    <label for="First Name">First Name</label>
+                    <input name="name" type="text" class="form-control"  placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="Last Name">Last Name</label>
+                    <input name="last_name" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="Phone number">Phone number</label>
+                    <input name="phone_number" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="e_mail" type="email" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input name="address" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Birthday</label>
+                    <input name="birthday" type="text" class="form-control" placeholder="">
+                </div>
+                <input type="submit" name="submit" value="Edit" class="btn btn-success"></button>
     </form>
 </div>
 

@@ -34,7 +34,12 @@ if(isset($_POST['button1'])){
 
 
     $pdo=getConnection();
-
+    $phone=$_POST['phone_number'];
+    $valid=("SELECT COUNT(*) FROM contact_table WHERE phone_number='".$phone."' LIMIT 1");
+    $res = $pdo->prepare($valid); 
+    $res->execute(); 
+    $number_of_rows = $res->fetchColumn(); 
+if ($number_of_rows == 0) {
     $stmt=$pdo->prepare("INSERT INTO contact_table (name, last_name, phone_number, address, birthday, e_mail) VALUES (:name, :last_name, :phone_number, :address, :birthday, :e_mail)");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':last_name', $last_name);
@@ -50,7 +55,9 @@ if(isset($_POST['button1'])){
     $e_mail = $_POST['e_mail'];
     print_r($query);
     $stmt->execute();
-    
+    } else {
+    echo "Пользователь с таким номером телефона уже существует";
+}
 }
 ?>
         </div>
