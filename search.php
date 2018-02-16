@@ -23,10 +23,10 @@
     <nav class="navbar navbar-inverse ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" type="button" class="btn btn-default btn-lg ">Home</a>
+      <a href="index.php" type="button" class="btn btn-default btn-lg ">Home</a>
       <a href="form.php" type="button" class="btn btn-default btn-lg ">Add</a>
 
-        <form action="search.php" method="post" class="navbar-form navbar-right" role="search">
+        <form method="POST" class="navbar-form navbar-right" role="search">
               <div class="form-group">
           <input name="search" type="text" class="form-control" placeholder="Search">
               </div>
@@ -37,13 +37,27 @@
   </div>
 </nav>
 
+<!-- <?php 
+  //    require_once "config.php";
+ //       $sear=$_POST["search"];
+  //      $query = "SELECT * FROM contact_table WHERE name=?";
+  //      $stmt->bindValue(1, $sear, PDO::PARAM_STR);
+  //      $data = selectPerson($query);
+
+  //$pdo= getConnection();
+
+?> -->
 <?php 
-      require_once "config.php";
-        $query = "SELECT * FROM contact_table";
-        $data = selectPerson($query);
+  require_once "config.php";
+  $query = "SELECT * FROM contact_table WHERE name = :name";
+  $data = searchPerson($query);
 
-  $pdo=getConnection();
-
+function searchPerson($query){
+  $pdo= getConnection();
+  $stmt = $pdo->prepare($query);
+  $stmt->execute(array('name' => $_POST['search']));
+  return $stmt->fetchAll();
+}
 ?>
 
 
