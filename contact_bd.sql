@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 19 2017 г., 19:53
+-- Время создания: Фев 24 2018 г., 15:55
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -36,8 +36,9 @@ CREATE TABLE `contact_table` (
   `address` varchar(255) NOT NULL,
   `birthday` date NOT NULL,
   `e_mail` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL
+  `image` longblob NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

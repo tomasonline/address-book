@@ -32,7 +32,6 @@ require_once "config.php";
 
 if(isset($_POST['button1'])){
 
-
     $pdo=getConnection();
     $phone=$_POST['phone_number'];
     $valid=("SELECT COUNT(*) FROM contact_table WHERE phone_number='".$phone."' LIMIT 1");
@@ -40,7 +39,9 @@ if(isset($_POST['button1'])){
     $res->execute(); 
     $number_of_rows = $res->fetchColumn(); 
 if ($number_of_rows == 0) {
-    $stmt=$pdo->prepare("INSERT INTO contact_table (name, last_name, phone_number, address, birthday, e_mail) VALUES (:name, :last_name, :phone_number, :address, :birthday, :e_mail)");
+    $stmt=$pdo->prepare("INSERT INTO contact_table (name, last_name, phone_number, address, birthday, e_mail, image) VALUES (:name, :last_name, :phone_number, :address, :birthday, :e_mail, :image)");
+
+    $stmt->bindParam(':image', file_get_contents($_FILES['image']['tmp_name']));
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':last_name', $last_name);
     $stmt->bindParam(':phone_number', $phone_number);
@@ -62,7 +63,7 @@ if ($number_of_rows == 0) {
 ?>
         </div>
 
-            <form method="post" role="form">
+            <form method="post" role="form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="First Name">First Name</label>
                     <input name="name" type="text" class="form-control"  placeholder="">
@@ -87,6 +88,10 @@ if ($number_of_rows == 0) {
                     <label for="birthday">Birthday</label>
                     <input name="birthday" type="text" class="form-control" placeholder="">
                 </div>
+
+                <p><input type="file" name="image"></p>
+                
+                
                 <input type="submit" name="button1" class="btn btn-success"></button>
             </form>
         </div>
